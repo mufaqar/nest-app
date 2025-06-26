@@ -1,9 +1,16 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
+import { EmployeeService } from './employee.service';
 
 @Controller('employee')
 export class EmployeeController {
+  constructor(private readonly EmpData: EmployeeService) {}
+
   @Get()
-  getEmp() {
-    return 'Employee Fetch successfully';
+  getEmployee() {
+    return this.EmpData.getAllEmployee();
+  }
+  @Get(':id')
+  getEmployeeById(@Param('id') id: string) {
+    return this.EmpData.getEmployeeById(Number(id));
   }
 }
